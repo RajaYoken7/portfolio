@@ -1,0 +1,983 @@
+1.hero section
+
+You are given a task to integrate an existing React component in the codebase
+
+The codebase should support:
+- shadcn project structure  
+- Tailwind CSS
+- Typescript
+
+If it doesn't, provide instructions on how to setup project via shadcn CLI, install Tailwind or Typescript.
+
+Determine the default path for components and styles. 
+If default path for components is not /components/ui, provide instructions on why it's important to create this folder
+Copy-paste this component to /components/ui folder:
+```tsx
+minimalist-hero.tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { LucideIcon } from 'lucide-react';
+import { cn } from '@/lib/utils';
+
+// Define the props interface for type safety and reusability
+interface MinimalistHeroProps {
+  logoText: string;
+  navLinks: { label: string; href: string }[];
+  mainText: string;
+  readMoreLink: string;
+  imageSrc: string;
+  imageAlt: string;
+  overlayText: {
+    part1: string;
+    part2: string;
+  };
+  socialLinks: { icon: LucideIcon; href: string }[];
+  locationText: string;
+  className?: string;
+}
+
+// Helper component for navigation links
+const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  <a
+    href={href}
+    className="text-sm font-medium tracking-widest text-foreground/60 transition-colors hover:text-foreground"
+  >
+    {children}
+  </a>
+);
+
+// Helper component for social media icons
+const SocialIcon = ({ href, icon: Icon }: { href: string; icon: LucideIcon }) => (
+  <a href={href} target="_blank" rel="noopener noreferrer" className="text-foreground/60 transition-colors hover:text-foreground">
+    <Icon className="h-5 w-5" />
+  </a>
+);
+
+// The main reusable Hero Section component
+export const MinimalistHero = ({
+  logoText,
+  navLinks,
+  mainText,
+  readMoreLink,
+  imageSrc,
+  imageAlt,
+  overlayText,
+  socialLinks,
+  locationText,
+  className,
+}: MinimalistHeroProps) => {
+  return (
+    <div
+      className={cn(
+        'relative flex h-screen w-full flex-col items-center justify-between overflow-hidden bg-background p-8 font-sans md:p-12',
+        className
+      )}
+    >
+      {/* Header */}
+      <header className="z-30 flex w-full max-w-7xl items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-xl font-bold tracking-wider"
+        >
+          {logoText}
+        </motion.div>
+        <div className="hidden items-center space-x-8 md:flex">
+          {navLinks.map((link) => (
+            <NavLink key={link.label} href={link.href}>
+              {link.label}
+            </NavLink>
+          ))}
+        </div>
+        <motion.button
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col space-y-1.5 md:hidden"
+          aria-label="Open menu"
+        >
+          <span className="block h-0.5 w-6 bg-foreground"></span>
+          <span className="block h-0.5 w-6 bg-foreground"></span>
+          <span className="block h-0.5 w-5 bg-foreground"></span>
+        </motion.button>
+      </header>
+
+      {/* Main Content Area */}
+      <div className="relative grid w-full max-w-7xl flex-grow grid-cols-1 items-center md:grid-cols-3">
+        {/* Left Text Content */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1 }}
+          className="z-20 order-2 md:order-1 text-center md:text-left"
+        >
+          <p className="mx-auto max-w-xs text-sm leading-relaxed text-foreground/80 md:mx-0">{mainText}</p>
+          <a href={readMoreLink} className="mt-4 inline-block text-sm font-medium text-foreground underline decoration-from-font">
+            Read More
+          </a>
+        </motion.div>
+
+        {/* Center Image with Circle */}
+        <div className="relative order-1 md:order-2 flex justify-center items-center h-full">
+            <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+                className="absolute z-0 h-[300px] w-[300px] rounded-full bg-yellow-400/90 md:h-[400px] md:w-[400px] lg:h-[500px] lg:w-[500px]"
+            ></motion.div>
+            <motion.img
+                src={imageSrc}
+                alt={imageAlt}
+                className="relative z-10 h-auto w-56 object-cover md:w-64 scale-150 lg:w-72"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
+                onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.onerror = null;
+                target.src = `https://placehold.co/400x600/eab308/ffffff?text=Image+Not+Found`;
+                }}
+            />
+        </div>
+
+        {/* Right Text */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.2 }}
+          className="z-20 order-3 flex items-center justify-center text-center md:justify-start"
+        >
+          <h1 className="text-7xl font-extrabold text-foreground md:text-8xl lg:text-9xl">
+            {overlayText.part1}
+            <br />
+            {overlayText.part2}
+          </h1>
+        </motion.div>
+      </div>
+
+      {/* Footer Elements */}
+      <footer className="z-30 flex w-full max-w-7xl items-center justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.2 }}
+          className="flex items-center space-x-4"
+        >
+          {socialLinks.map((link, index) => (
+            <SocialIcon key={index} href={link.href} icon={link.icon} />
+          ))}
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 1.3 }}
+          className="text-sm font-medium text-foreground/80"
+        >
+          {locationText}
+        </motion.div>
+      </footer>
+    </div>
+  );
+};
+
+
+demo.tsx
+import React from 'react';
+import { Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
+import { MinimalistHero } from '@/components/ui/minimalist-hero'; // Adjust the import path as needed
+
+const MinimalistHeroDemo = () => {
+  const navLinks = [
+    { label: 'HOME', href: '#' },
+    { label: 'PRODUCT', href: '#' },
+    { label: 'STORE', href: '#' },
+    { label: 'ABOUT US', href: '#' },
+  ];
+
+  const socialLinks = [
+    { icon: Facebook, href: '#' },
+    { icon: Instagram, href: '#' },
+    { icon: Twitter, href: '#' },
+    { icon: Linkedin, href: '#' },
+  ];
+
+  return (
+    <MinimalistHero
+      logoText="mnmlst."
+      navLinks={navLinks}
+      mainText="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ultrices, justo vel tempus."
+      readMoreLink="#"
+      imageSrc="https://ik.imagekit.io/fpxbgsota/image%2013.png?updatedAt=1753531863793"
+      imageAlt="A portrait of a person in a black turtleneck, in profile."
+      overlayText={{
+        part1: 'less is',
+        part2: 'more.',
+      }}
+      socialLinks={socialLinks}
+      locationText="Arlington Heights, IL"
+    />
+  );
+};
+
+export default MinimalistHeroDemo;
+
+```
+
+Install NPM dependencies:
+```bash
+lucide-react, framer-motion
+```
+
+Implementation Guidelines
+ 1. Analyze the component structure and identify all required dependencies
+ 2. Review the component's argumens and state
+ 3. Identify any required context providers or hooks and install them
+ 4. Questions to Ask
+ - What data/props will be passed to this component?
+ - Are there any specific state management requirements?
+ - Are there any required assets (images, icons, etc.)?
+ - What is the expected responsive behavior?
+ - What is the best place to use this component in the app?
+
+Steps to integrate
+ 0. Copy paste all the code above in the correct directories
+ 1. Install external dependencies
+ 2. Fill image assets with Unsplash stock images you know exist
+ 3. Use lucide-react icons for svgs or logos if component requires them
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2.interactive robot
+
+You are given a task to integrate an existing React component in the codebase
+
+The codebase should support:
+- shadcn project structure  
+- Tailwind CSS
+- Typescript
+
+If it doesn't, provide instructions on how to setup project via shadcn CLI, install Tailwind or Typescript.
+
+Determine the default path for components and styles. 
+If default path for components is not /components/ui, provide instructions on why it's important to create this folder
+Copy-paste this component to /components/ui folder:
+```tsx
+interactive-3d-robot.tsx
+
+'use client';
+
+import { Suspense, lazy } from 'react';
+const Spline = lazy(() => import('@splinetool/react-spline'));
+
+interface InteractiveRobotSplineProps {
+  scene: string;
+  className?: string;
+}
+
+export function InteractiveRobotSpline({ scene, className }: InteractiveRobotSplineProps) {
+  return (
+    <Suspense
+      fallback={
+        <div className={`w-full h-full flex items-center justify-center bg-gray-900 text-white ${className}`}>
+          <svg className="animate-spin h-5 w-5 text-white mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l2-2.647z"></path>
+          </svg>
+        </div>
+      }
+    >
+      
+      <Spline
+        scene={scene}
+        className={className} 
+      />
+    </Suspense>
+  );
+}
+
+
+
+demo.tsx
+
+'use client';
+
+import React from 'react';
+import { InteractiveRobotSpline } from '@/components/blocks/interactive-3d-robot'
+
+export function Section() { 
+  
+  const ROBOT_SCENE_URL = "https://prod.spline.design/PyzDhpQ9E5f1E3MT/scene.splinecode";
+
+  return (
+   
+    <div className="relative w-screen h-screen overflow-hidden">
+
+      <InteractiveRobotSpline
+        scene={ROBOT_SCENE_URL}
+        className="absolute inset-0 z-0" 
+      />
+
+    
+      <div className="
+        absolute inset-0 z-10
+        pt-20 md:pt-32 lg:pt-40
+        px-4 md:px-8            
+        pointer-events-none     
+      ">
+       
+        <div className="
+          text-center             // Center the text within this block
+          text-white              // Text color
+          drop-shadow-lg          // Text shadow for readability
+          w-full max-w-2xl        // Max width for readability on large screens
+          mx-auto                 // Center the block horizontally
+        ">
+         
+          <h1 className="
+            text-2xl md:text-3xl lg:text-4xl xl:text-5xl 
+            font-bold 
+           
+          ">
+            This is interactive 3d robot Whobee
+          </h1>
+        </div>
+      </div>
+
+    </div> 
+  );
+}
+
+```
+
+Copy-paste these files for dependencies:
+```tsx
+shadcn/card
+import * as React from "react"
+
+import { cn } from "@/lib/utils"
+
+const Card = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn(
+      "rounded-lg border bg-card text-card-foreground shadow-sm",
+      className,
+    )}
+    {...props}
+  />
+))
+Card.displayName = "Card"
+
+const CardHeader = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex flex-col space-y-1.5 p-6", className)}
+    {...props}
+  />
+))
+CardHeader.displayName = "CardHeader"
+
+const CardTitle = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLHeadingElement>
+>(({ className, ...props }, ref) => (
+  <h3
+    ref={ref}
+    className={cn(
+      "text-2xl font-semibold leading-none tracking-tight",
+      className,
+    )}
+    {...props}
+  />
+))
+CardTitle.displayName = "CardTitle"
+
+const CardDescription = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLAttributes<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p
+    ref={ref}
+    className={cn("text-sm text-muted-foreground", className)}
+    {...props}
+  />
+))
+CardDescription.displayName = "CardDescription"
+
+const CardContent = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div ref={ref} className={cn("p-6 pt-0", className)} {...props} />
+))
+CardContent.displayName = "CardContent"
+
+const CardFooter = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center p-6 pt-0", className)}
+    {...props}
+  />
+))
+CardFooter.displayName = "CardFooter"
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }
+
+```
+
+Install NPM dependencies:
+```bash
+@splinetool/react-spline
+```
+
+Implementation Guidelines
+ 1. Analyze the component structure and identify all required dependencies
+ 2. Review the component's argumens and state
+ 3. Identify any required context providers or hooks and install them
+ 4. Questions to Ask
+ - What data/props will be passed to this component?
+ - Are there any specific state management requirements?
+ - Are there any required assets (images, icons, etc.)?
+ - What is the expected responsive behavior?
+ - What is the best place to use this component in the app?
+
+Steps to integrate
+ 0. Copy paste all the code above in the correct directories
+ 1. Install external dependencies
+ 2. Fill image assets with Unsplash stock images you know exist
+ 3. Use lucide-react icons for svgs or logos if component requires them
+
+
+3.image reveal
+
+You are given a task to integrate an existing React component in the codebase
+
+The codebase should support:
+- shadcn project structure  
+- Tailwind CSS
+- Typescript
+
+If it doesn't, provide instructions on how to setup project via shadcn CLI, install Tailwind or Typescript.
+
+Determine the default path for components and styles. 
+If default path for components is not /components/ui, provide instructions on why it's important to create this folder
+Copy-paste this component to /components/ui folder:
+```tsx
+image-reveal.tsx
+'use client'
+import React, { useRef, useState, useEffect } from 'react'
+
+// Responsive values based on viewport size
+const getResponsiveValues = () => {
+    const width = typeof window !== 'undefined' ? window.innerWidth : 1024;
+    
+    let baseRadius;
+    
+    if (width < 768) {
+        baseRadius = 70 + (width / 768) * 30;
+    } else if (width < 1440) {
+        baseRadius = 80 + ((width - 768) / (1440 - 768)) * 20;
+    } else {
+        baseRadius = 110 + ((Math.min(width, 2560) - 1440) / (2560 - 1440)) * 30;
+    }
+    
+    const multiplier = baseRadius / 100;
+    
+    return {
+        MAX_RADIUS: Math.round(baseRadius),
+        MIN_RADIUS: 0,
+        SOFT_EDGE: Math.round(60 * multiplier),
+        LERP_SPEED: 0.18,
+        RADIUS_LERP_SPEED: 0.13
+    };
+}
+
+export const ImageHover = () => {
+        const containerRef = useRef<HTMLDivElement>(null);
+        const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
+        const [lerpedPos, setLerpedPos] = useState<{ x: number; y: number } | null>(null);
+        const [hovered, setHovered] = useState(false);
+        const [radius, setRadius] = useState(0);
+        const [targetRadius, setTargetRadius] = useState(0);
+        const [values, setValues] = useState(getResponsiveValues());
+        const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+        // Detect touch devices and update responsive values on resize
+        useEffect(() => {
+                const handleResize = () => {
+                        setValues(getResponsiveValues());
+                };
+
+                // Check if touch device
+                setIsTouchDevice('ontouchstart' in window || navigator.maxTouchPoints > 0);
+                
+                window.addEventListener('resize', handleResize);
+                return () => window.removeEventListener('resize', handleResize);
+        }, []);
+
+        // Lerp the displayed position for smooth movement
+        useEffect(() => {
+                if (!hovered || !mousePos || isTouchDevice) {
+                        setLerpedPos(null);
+                        return;
+                }
+                let frame: number;
+                const animate = () => {
+                        setLerpedPos(prev => {
+                                if (!prev) return mousePos;
+                                const dx = mousePos.x - prev.x;
+                                const dy = mousePos.y - prev.y;
+                                const dist = Math.sqrt(dx * dx + dy * dy);
+                                if (dist < 0.5) return mousePos;
+                                return {
+                                        x: prev.x + dx * values.LERP_SPEED,
+                                        y: prev.y + dy * values.LERP_SPEED,
+                                };
+                        });
+                        frame = requestAnimationFrame(animate);
+                };
+                frame = requestAnimationFrame(animate);
+                return () => cancelAnimationFrame(frame);
+        }, [mousePos, hovered, isTouchDevice, values.LERP_SPEED]);
+
+        // Animate the radius for enter/exit
+        useEffect(() => {
+                setTargetRadius(hovered ? values.MAX_RADIUS : values.MIN_RADIUS);
+        }, [hovered, values.MAX_RADIUS, values.MIN_RADIUS]);
+
+        useEffect(() => {
+                let frame: number;
+                const animateRadius = () => {
+                        setRadius(prev => {
+                                if (Math.abs(prev - targetRadius) < 1) return targetRadius;
+                                return prev + (targetRadius - prev) * values.RADIUS_LERP_SPEED;
+                        });
+                        frame = requestAnimationFrame(animateRadius);
+                };
+                frame = requestAnimationFrame(animateRadius);
+                return () => cancelAnimationFrame(frame);
+        }, [targetRadius, values.RADIUS_LERP_SPEED]);
+
+        const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+                if (isTouchDevice) return;
+                
+                const rect = containerRef.current?.getBoundingClientRect();
+                if (rect) {
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        setMousePos({ x, y });
+                }
+        };
+
+        // For touch devices, handle touch move
+        const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
+                const rect = containerRef.current?.getBoundingClientRect();
+                if (rect && e.touches[0]) {
+                        const x = e.touches[0].clientX - rect.left;
+                        const y = e.touches[0].clientY - rect.top;
+                        setMousePos({ x, y });
+                        setLerpedPos({ x, y }); // No lerping for touch
+                        setHovered(true);
+                }
+        };
+
+        const handleMouseEnter = () => !isTouchDevice && setHovered(true);
+        const handleMouseLeave = () => {
+                setHovered(false);
+                setMousePos(null);
+                setLerpedPos(null);
+        };
+
+        // Handle touch start/end
+        const handleTouchStart = handleTouchMove;
+        const handleTouchEnd = handleMouseLeave;
+
+        // Multi-stop radial gradient for mask with glow
+        const maskStyle = lerpedPos && radius > 0
+                ? {
+                            WebkitMaskImage: `radial-gradient(circle ${radius}px at ${lerpedPos.x}px ${lerpedPos.y}px,
+                                transparent 0 ${(radius - values.SOFT_EDGE - 20)}px,
+                                rgba(0,0,0,0.10) ${(radius - values.SOFT_EDGE)}px,
+                                rgba(0,0,0,0.25) ${(radius - values.SOFT_EDGE/1.5)}px,
+                                rgba(0,0,0,0.45) ${(radius - values.SOFT_EDGE/2)}px,
+                                rgba(0,0,0,0.75) ${radius}px,
+                                black 100%)`,
+                            maskImage: `radial-gradient(circle ${radius}px at ${lerpedPos.x}px ${lerpedPos.y}px,
+                                transparent 0 ${(radius - values.SOFT_EDGE - 20)}px,
+                                rgba(0,0,0,0.10) ${(radius - values.SOFT_EDGE)}px,
+                                rgba(0,0,0,0.25) ${(radius - values.SOFT_EDGE/1.5)}px,
+                                rgba(0,0,0,0.45) ${(radius - values.SOFT_EDGE/2)}px,
+                                rgba(0,0,0,0.75) ${radius}px,
+                                black 100%)`,
+                            transition: 'WebkitMaskImage 0.3s, maskImage 0.3s, opacity 0.3s',
+                            opacity: 1,
+                    }
+                : {
+                            WebkitMaskImage: 'none',
+                            maskImage: 'none',
+                            opacity: 1,
+                            transition: 'WebkitMaskImage 0.3s, maskImage 0.3s, opacity 0.3s',
+                    };
+
+        // Fade overlay out when not hovered
+        const overlayOpacity = hovered && lerpedPos && radius > 0 ? 'opacity-90' : 'opacity-100';
+
+        return (
+                <div className='bg-black h-screen w-screen flex justify-center items-center'>
+                        <div
+                                ref={containerRef}
+                                className="container relative w-[90%] md:w-2/3 lg:w-2/3 aspect-video max-w-4xl rounded-xl border-[0.5px] border-neutral-700 shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden"
+                                onMouseMove={handleMouseMove}
+                                onMouseEnter={handleMouseEnter}
+                                onMouseLeave={handleMouseLeave}
+                                onTouchMove={handleTouchMove}
+                                onTouchStart={handleTouchStart}
+                                onTouchEnd={handleTouchEnd}
+                        >
+                                <img
+                                        src="https://images.unsplash.com/photo-1638551145269-f7925c37e672?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                                        alt="Beach Marine"
+                                        className="absolute w-full h-full object-cover rounded-xl overflow-hidden"
+                                />
+                                {/* Overlay: blurred, dark, with mask */}
+                                <div
+                                        className={`absolute top-0 left-0 w-full h-full bg-black/80 backdrop-blur-[6px] rounded-xl transition-all duration-300 pointer-events-none ${overlayOpacity}`}
+                                        style={maskStyle}
+                                />
+                                {/* Glow: extra radial gradient for soft border */}
+                                {lerpedPos && radius > 0 && (
+                                        <div
+                                                className="pointer-events-none absolute top-0 left-0 w-full h-full"
+                                                style={{
+                                                        background: `radial-gradient(circle ${radius + 30}px at ${lerpedPos.x}px ${lerpedPos.y}px, rgba(255,255,255,0.13) 0, rgba(255,255,255,0.07) 60%, transparent 100%)`,
+                                                        mixBlendMode: 'screen',
+                                                        transition: 'background 0.3s',
+                                                }}
+                                        />
+                                )}
+                        </div>
+                </div>
+        )
+}
+
+demo.tsx
+// This is file with demos of your component
+// Each export is one usecase for your component
+
+import { ImageHover } from "@/components/ui/image-reveal";
+
+const DemoOne = () => {
+  return <ImageHover />;
+};
+
+export { DemoOne };
+
+```
+
+Implementation Guidelines
+ 1. Analyze the component structure and identify all required dependencies
+ 2. Review the component's argumens and state
+ 3. Identify any required context providers or hooks and install them
+ 4. Questions to Ask
+ - What data/props will be passed to this component?
+ - Are there any specific state management requirements?
+ - Are there any required assets (images, icons, etc.)?
+ - What is the expected responsive behavior?
+ - What is the best place to use this component in the app?
+
+Steps to integrate
+ 0. Copy paste all the code above in the correct directories
+ 1. Install external dependencies
+ 2. Fill image assets with Unsplash stock images you know exist
+ 3. Use lucide-react icons for svgs or logos if component requires them
+
+
+
+
+
+
+
+4.Image spotlight
+
+You are given a task to integrate an existing React component in the codebase
+
+The codebase should support:
+- shadcn project structure  
+- Tailwind CSS
+- Typescript
+
+If it doesn't, provide instructions on how to setup project via shadcn CLI, install Tailwind or Typescript.
+
+Determine the default path for components and styles. 
+If default path for components is not /components/ui, provide instructions on why it's important to create this folder
+Copy-paste this component to /components/ui folder:
+```tsx
+image-spotlight.tsx
+'use client'
+import React, { useState, useCallback, useRef } from 'react';
+
+// Types
+interface PerspectiveState {
+  rotateX: number;
+  rotateY: number;
+}
+
+interface SpotlightConfig {
+  spotlightSize?: number;
+  overlayOpacity?: number;
+  className?: string;
+}
+
+interface ImageSpotlightProps {
+  src: string;
+  alt: string;
+  orientation?: 'landscape' | 'portrait';
+  width?: number;
+  height?: number;
+  config?: SpotlightConfig;
+}
+
+
+export default function ImageSpotlight({
+  src,
+  alt,
+  orientation = 'landscape',
+  width,
+  height,
+  config = {}
+}: ImageSpotlightProps) {
+  // Default configuration
+  const defaultConfig: Required<SpotlightConfig> = {
+    spotlightSize: 80,
+    overlayOpacity: 0.6,
+    className: ''
+  };
+
+  const finalConfig = { ...defaultConfig, ...config };
+
+  // Component state
+  const [perspective, setPerspective] = useState<PerspectiveState>({ rotateX: 0, rotateY: 0 });
+
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Mouse move handler
+  const handleMouseMove = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    if (!containerRef.current) return;
+
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+    // Update CSS variables for spotlight position
+    containerRef.current.style.setProperty('--mouse-x', `${x}%`);
+    containerRef.current.style.setProperty('--mouse-y', `${y}%`);
+
+    // Calculate 3D perspective rotation
+    // Map cursor position to rotation values (-8 to +8 degrees for subtle effect)
+    const rotateY = ((x - 50) / 50) * 8; // Left-right tilt
+    const rotateX = ((50 - y) / 50) * 8; // Up-down tilt (inverted for natural feel)
+
+    setPerspective({ rotateX, rotateY });
+  }, []);
+
+  // Mouse enter handler
+  const handleMouseEnter = () => {
+    // Handler for mouse enter event
+  };
+
+  // Mouse leave handler
+  const handleMouseLeave = () => {
+    setPerspective({ rotateX: 0, rotateY: 0 }); // Reset perspective when leaving
+  };
+
+  // Container classes and inline styles
+  const getContainerDimensions = (): React.CSSProperties => {
+    // Use provided width/height or fall back to defaults based on orientation
+    if (width && height) {
+      return {
+        width: `${width}px`,
+        height: `${height}px`,
+        maxWidth: '100%'
+      };
+    }
+
+    // Default dimensions if no width/height provided
+    if (orientation === 'landscape') {
+      return {
+        width: '800px',
+        height: '450px', // 16:9 ratio
+        maxWidth: '100%'
+      };
+    } else {
+      return {
+        width: '450px',
+        height: '600px', // 3:4 ratio
+        maxWidth: '100%'
+      };
+    }
+  };
+
+  const containerClasses = `
+    relative overflow-hidden cursor-none rounded-lg shadow-md border
+    ${finalConfig.className}
+  `.trim();
+
+  return (
+    <div className="flex items-center justify-center">
+      <div
+        ref={containerRef}
+        className={containerClasses}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        role="img"
+        aria-label={alt}
+        aria-describedby="spotlight-instructions"
+        tabIndex={0}
+        style={{
+          ...getContainerDimensions(),
+          '--mouse-x': '50%',
+          '--mouse-y': '50%',
+          '--spotlight-size': `${finalConfig.spotlightSize}px`,
+          '--overlay-opacity': finalConfig.overlayOpacity,
+          transform: `perspective(1000px) rotateX(${perspective.rotateX}deg) rotateY(${perspective.rotateY}deg)`,
+          transformStyle: 'preserve-3d',
+          transition: 'transform 0.2s ease-out'
+        } as React.CSSProperties}
+      >
+        {/* Hidden instructions for screen readers */}
+        <div id="spotlight-instructions" className="sr-only">
+          Interactive image with mouse spotlight effect.
+          Move your mouse over the image to reveal different areas.
+        </div>
+
+        {/* Blurred Base Image - Always visible */}
+        <img
+          src={src}
+          alt={alt}
+          className="absolute inset-0 w-full h-full object-cover"
+          draggable={false}
+          style={{ filter: 'blur(5px)' }}
+        />
+
+        {/* Sharp Image - Only visible through spotlight */}
+        <img
+          src={src}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          draggable={false}
+          style={{
+            maskImage: `radial-gradient(
+              circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+              black ${finalConfig.spotlightSize * 0.4}px,
+              transparent ${finalConfig.spotlightSize * 1.6}px
+            )`,
+            WebkitMaskImage: `radial-gradient(
+              circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+              black ${finalConfig.spotlightSize * 0.4}px,
+              transparent ${finalConfig.spotlightSize * 1.6}px
+            )`,
+            zIndex: 2
+          }}
+        />
+
+        {/* Main Dark Overlay with Current Spotlight Position */}
+        <div
+          className="absolute inset-0 bg-black will-change-[mask-position] transition-all duration-100 ease-out"
+          style={{
+            opacity: finalConfig.overlayOpacity,
+            maskImage: `radial-gradient(
+              circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+              transparent ${finalConfig.spotlightSize * 0.4}px,
+              black ${finalConfig.spotlightSize * 1.6}px
+            )`,
+            WebkitMaskImage: `radial-gradient(
+              circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+              transparent ${finalConfig.spotlightSize * 0.4}px,
+              black ${finalConfig.spotlightSize * 1.6}px
+            )`,
+            zIndex: 10
+          }}
+        />
+
+      </div>
+    </div>
+  );
+}
+
+demo.tsx
+import React from 'react';
+import ImageSpotlight from "@/components/ui/image-spotlight";
+
+export default function DemoOne() {
+  return (
+    <main className="w-full p-6">
+      <div className="flex justify-center gap-2">
+        <ImageSpotlight
+          src="https://res.cloudinary.com/dctgknnt7/image/upload/v1758731403/1_d8uozd.jpg"
+          alt="Portrait image with spotlight effect"
+          orientation="portrait"
+          width={300}
+          height={400}
+        />
+        <ImageSpotlight
+          src="https://res.cloudinary.com/dctgknnt7/image/upload/v1758731402/2_hme6yu.jpg"
+          alt="Portrait image with spotlight effect"
+          orientation="portrait"
+          width={300}
+          height={400}
+        />
+        <ImageSpotlight
+          src="https://res.cloudinary.com/dctgknnt7/image/upload/v1758731402/3_nfdtim.jpg"
+          alt="Portrait image with spotlight effect"
+          orientation="portrait"
+          width={300}
+          height={400}
+        />
+      </div>
+    </main>
+  )
+}
+
+```
+
+Implementation Guidelines
+ 1. Analyze the component structure and identify all required dependencies
+ 2. Review the component's argumens and state
+ 3. Identify any required context providers or hooks and install them
+ 4. Questions to Ask
+ - What data/props will be passed to this component?
+ - Are there any specific state management requirements?
+ - Are there any required assets (images, icons, etc.)?
+ - What is the expected responsive behavior?
+ - What is the best place to use this component in the app?
+
+Steps to integrate
+ 0. Copy paste all the code above in the correct directories
+ 1. Install external dependencies
+ 2. Fill image assets with Unsplash stock images you know exist
+ 3. Use lucide-react icons for svgs or logos if component requires them
