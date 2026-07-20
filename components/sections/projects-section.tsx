@@ -30,6 +30,7 @@ const projectOptions = [
     description: 'Premium fitness platform with dynamic class schedules, trainer profiles, progress tracking, and high-energy motion design.',
     image: '/assets/projects_done/Project_4_—_Gym_Website_202606102150.jpeg',
     icon: <Activity className="w-6 h-6" />,
+    projectUrl: 'https://ecommerce-three-sigma-27.vercel.app/',
   },
   {
     title: 'AI SaaS Platform',
