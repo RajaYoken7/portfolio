@@ -14,12 +14,6 @@ const projectOptions = [
     projectUrl: 'https://6a28658718f0eb7cf358c4e1--fantastic-daifuku-be5a75.netlify.app/',
   },
   {
-    title: 'BMW M4 CS Experience',
-    description: 'Immersive automotive experience featuring cinematic motion, performance-focused UI, and interactive vehicle exploration.',
-    image: '/assets/projects_done/BMW_M4_CS_futuristic_city_202606102150.jpeg',
-    icon: <Car className="w-6 h-6" />,
-  },
-  {
     title: 'Cyberpunk Portfolio',
     description: 'Neon-soaked developer portfolio with glitch animations, terminal-style interfaces, and a fully immersive cyberpunk aesthetic.',
     image: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1600&q=80',
@@ -31,12 +25,6 @@ const projectOptions = [
     image: '/assets/projects_done/Project_4_—_Gym_Website_202606102150.jpeg',
     icon: <Activity className="w-6 h-6" />,
     projectUrl: 'https://ecommerce-three-sigma-27.vercel.app/',
-  },
-  {
-    title: 'AI SaaS Platform',
-    description: 'Cutting-edge AI-powered SaaS dashboard with real-time data streams, generative UI components, and intelligent automation workflows.',
-    image: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1600&q=80',
-    icon: <Cpu className="w-6 h-6" />,
   },
 ];
 
