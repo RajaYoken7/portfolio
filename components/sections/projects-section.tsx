@@ -18,7 +18,7 @@ interface ProjectData {
     label: string;
     meta: string;
     tone: 'light';
-    art: 'none' | 'glacier';
+    art: 'glacier' | 'ember' | 'verdant';
     seed: number;
     image?: string;
     labelPlacement: 'bottom-left' | 'top-left' | 'top-right';
@@ -42,19 +42,20 @@ const projects: ProjectData[] = [
       label: 'Dell G15',
       meta: '4 Files',
       tone: 'light',
-      art: 'none',
+      art: 'glacier',
       seed: 7,
       labelPlacement: 'bottom-left',
       files: [
         {
           name: 'Launch 3D Configurator',
           meta: 'Live Deployment',
-          image: '/assets/projects_done/Project_1_—_Dell_G15_202606102150.jpeg',
+          image: '/assets/projects_done/Project_1_Dell_G15_202606102150.jpeg',
           href: 'https://6a28658718f0eb7cf358c4e1--fantastic-daifuku-be5a75.netlify.app/',
         },
         {
           name: 'Hardware Specifications',
           meta: 'RTX 4060 · i7-13650HX',
+          art: 'glacier',
         },
         {
           name: 'Orbital Camera Controls',
@@ -100,7 +101,7 @@ const projects: ProjectData[] = [
       label: 'Cyberpunk CLI',
       meta: '4 Files',
       tone: 'light',
-      art: 'none',
+      art: 'ember',
       seed: 19,
       labelPlacement: 'top-left',
       files: [
@@ -113,6 +114,7 @@ const projects: ProjectData[] = [
         {
           name: 'Procedural Matrix Stream',
           meta: 'HTML5 Canvas',
+          art: 'ember',
         },
         {
           name: 'Web Audio Synthesizer',
@@ -154,19 +156,20 @@ const projects: ProjectData[] = [
       label: 'Elite Gym',
       meta: '4 Files',
       tone: 'light',
-      art: 'none',
+      art: 'verdant',
       seed: 42,
       labelPlacement: 'top-right',
       files: [
         {
           name: 'Live Gym Application',
           meta: 'Vercel Deploy',
-          image: '/assets/projects_done/Project_4_—_Gym_Website_202606102150.jpeg',
+          image: '/assets/projects_done/Project_4_Gym_Website_202606102150.jpeg',
           href: 'https://ecommerce-three-sigma-27.vercel.app/',
         },
         {
           name: 'Schedule Booking Calendar',
           meta: 'Interactive Views',
+          art: 'verdant',
         },
         {
           name: 'Coaching Roster & Metrics',
@@ -205,7 +208,7 @@ export function ProjectsSection() {
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   return (
-    <section id="projects" className="relative w-full bg-[#F5F5F5] py-24 md:py-32 border-t border-b border-[#E5E5E5]">
+    <section id="projects" className="relative w-full bg-[#EBE9E5] text-[#151514] py-24 md:py-32 border-t border-b border-[#DCD9D4]">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}
@@ -217,26 +220,26 @@ export function ProjectsSection() {
           className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
         >
           <div className="flex flex-col gap-3 max-w-2xl">
-            <div className="inline-flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-white border border-[#E5E5E5]">
-              <span className="w-1.5 h-1.5 rounded-full bg-black" />
-              <span className="text-[11px] font-mono tracking-widest uppercase text-black font-medium">
+            <div className="inline-flex items-center gap-2.5 w-fit px-3.5 py-1.5 rounded-full bg-[#E0DDD7] border border-[#D0CDC5]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#151514]" />
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#151514] font-medium">
                 Selected Works
               </span>
             </div>
             
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-black">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#151514]">
               Featured Projects
             </h2>
             
-            <p className="text-sm md:text-base text-[#525252] leading-relaxed">
-              Tactile glass folders containing live project files, deployment builds, and architecture details.
+            <p className="text-sm md:text-base text-[#525250] leading-relaxed">
+              Interactive tactile folders containing live project files, deployment builds, and architecture details.
               Hover to lean the folder, click to open and fan out the files.
             </p>
           </div>
 
-          <div className="hidden md:flex items-center gap-2 font-mono text-xs text-[#737373]">
+          <div className="hidden md:flex items-center gap-2 font-mono text-xs text-[#6A6863]">
             <span>01</span>
-            <span className="w-8 h-px bg-[#E5E5E5]" />
+            <span className="w-8 h-px bg-[#D0CDC5]" />
             <span>03</span>
           </div>
         </motion.div>
@@ -249,10 +252,10 @@ export function ProjectsSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="flex flex-col bg-white rounded-2xl border border-[#E5E5E5] p-5 shadow-sm hover:border-black transition-colors duration-200"
+              className="flex flex-col bg-white rounded-2xl border border-[#D5D2CB] p-5 shadow-[0_2px_8px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_28px_rgba(0,0,0,0.06)] hover:border-[#151514] hover:-translate-y-1 transition-all duration-300"
             >
               {/* Folder Presentation Stage */}
-              <div className="w-full flex justify-center py-6 bg-[#FAFAFA] rounded-xl border border-[#E5E5E5] overflow-visible">
+              <div className="w-full flex justify-center py-6 bg-[#F4F2EE] rounded-xl border border-[#D5D2CB] overflow-visible">
                 <GlassFolder
                   label={project.folder.label}
                   meta={project.folder.meta}
@@ -270,16 +273,16 @@ export function ProjectsSection() {
 
               {/* Project Metadata */}
               <div className="flex flex-col gap-3 pt-5">
-                <div className="flex items-center justify-between text-xs font-mono text-[#737373]">
+                <div className="flex items-center justify-between text-xs font-mono text-[#6A6863]">
                   <span>{project.category}</span>
                   <span>{project.year}</span>
                 </div>
 
-                <h3 className="text-lg font-bold text-black tracking-tight">
+                <h3 className="text-lg font-bold text-[#151514] tracking-tight">
                   {project.title}
                 </h3>
 
-                <p className="text-xs text-[#525252] leading-relaxed line-clamp-3">
+                <p className="text-xs text-[#525250] leading-relaxed line-clamp-3">
                   {project.description}
                 </p>
 
@@ -288,7 +291,7 @@ export function ProjectsSection() {
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 text-[11px] font-mono rounded bg-[#F5F5F5] border border-[#E5E5E5] text-black"
+                      className="px-2 py-0.5 text-[11px] font-mono rounded bg-[#F4F2EE] border border-[#D5D2CB] text-[#151514] font-medium"
                     >
                       {tag}
                     </span>
@@ -296,12 +299,12 @@ export function ProjectsSection() {
                 </div>
 
                 {/* Direct Action Buttons */}
-                <div className="flex items-center gap-2 pt-3 border-t border-[#E5E5E5] mt-2">
+                <div className="flex items-center gap-2 pt-3 border-t border-[#D5D2CB] mt-2">
                   <a
                     href={project.projectUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-black text-white text-xs font-medium hover:bg-neutral-800 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-[#151514] text-white text-xs font-medium hover:bg-[#2A2A28] transition-colors"
                   >
                     <span>Launch</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -311,7 +314,7 @@ export function ProjectsSection() {
                     href={project.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-[#E5E5E5] bg-white text-black text-xs font-medium hover:bg-[#F5F5F5] transition-colors"
+                    className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-[#D5D2CB] bg-white text-[#151514] text-xs font-medium hover:bg-[#F4F2EE] hover:border-[#151514] transition-colors"
                     aria-label="View source code"
                   >
                     <Code2 className="w-3.5 h-3.5" />
@@ -328,15 +331,15 @@ export function ProjectsSection() {
           initial={{ opacity: 0, y: 15 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-16 p-8 rounded-2xl bg-white border border-[#E5E5E5] flex flex-col sm:flex-row items-center justify-between gap-6"
+          className="mt-16 p-8 rounded-2xl bg-white border border-[#D5D2CB] shadow-[0_2px_8px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row items-center justify-between gap-6"
         >
           <div className="flex items-center gap-4 text-center sm:text-left">
-            <div className="w-12 h-12 rounded-xl bg-[#F5F5F5] border border-[#E5E5E5] flex items-center justify-center shrink-0">
-              <FolderGit2 className="w-5 h-5 text-black" />
+            <div className="w-12 h-12 rounded-xl bg-[#F4F2EE] border border-[#D5D2CB] flex items-center justify-center shrink-0 text-[#151514]">
+              <FolderGit2 className="w-5 h-5 text-[#151514]" />
             </div>
             <div>
-              <h4 className="text-sm font-bold text-black">Interested in more repositories?</h4>
-              <p className="text-xs text-[#525252] mt-0.5">Explore open-source experiments, component demos, and prototypes.</p>
+              <h4 className="text-sm font-bold text-[#151514]">Interested in more repositories?</h4>
+              <p className="text-xs text-[#525250] mt-0.5">Explore open-source experiments, component demos, and prototypes.</p>
             </div>
           </div>
 
@@ -344,7 +347,7 @@ export function ProjectsSection() {
             href="https://github.com/RajaYoken7"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-black bg-black text-white text-xs font-medium hover:bg-neutral-800 transition-colors shrink-0"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-lg border border-[#151514] bg-[#151514] text-white text-xs font-semibold hover:bg-[#2A2A28] transition-colors shrink-0"
           >
             <GitBranch className="w-3.5 h-3.5" />
             <span>GitHub Repositories</span>

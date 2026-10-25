@@ -56,23 +56,21 @@
 
 /* ── Clean Selection ── */
 ::selection {
-  background: #000000;
+  background: #151514;
   color: #ffffff;
 }
 
 /* ── Typography & Smooth Flow ── */
 html {
-  color-scheme: only light !important;
-  background-color: #ffffff !important;
+  scroll-behavior: smooth;
+  background-color: #EBE9E5;
+  color: #151514;
+  overflow-x: hidden;
 }
 
 body {
-  color-scheme: only light !important;
-  background-color: #ffffff !important;
-  color: #000000 !important;
-}
-
-main {
-  background-color: #ffffff !important;
-  color: #000000 !important;
+  background-color: #EBE9E5;
+  color: #151514;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
