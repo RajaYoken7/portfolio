@@ -1,6 +1,7 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface FloatingNavProps {
   theme?: 'light' | 'dark';
@@ -32,8 +33,9 @@ const MoonIcon = () => (
 
 export function FloatingNav({ theme = 'light', onToggleTheme }: FloatingNavProps) {
   const isDark = theme === 'dark';
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
-  // Explicit theme-aware CSS variables for instant responsiveness and zero override leakage
+  // Theme-aware CSS variables for instant responsiveness and zero override leakage
   const navStyle = {
     '--nav-text': isDark ? '#F5F5F5' : '#151514',
     '--nav-icon': isDark ? '#F5F5F5' : '#151514',
@@ -48,6 +50,12 @@ export function FloatingNav({ theme = 'light', onToggleTheme }: FloatingNavProps
       : '0 8px 32px 0 rgba(0, 0, 0, 0.06), inset 0 1px 1px 0 rgba(255, 255, 255, 0.7)',
   } as React.CSSProperties;
 
+  const navLinks = [
+    { label: 'Overview', href: '#hero' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Contact', href: '#contact' },
+  ];
+
   return (
     <header className="fixed top-4 right-4 sm:top-5 sm:right-6 md:top-6 md:right-8 z-50 pointer-events-auto">
       <nav
@@ -60,65 +68,75 @@ export function FloatingNav({ theme = 'light', onToggleTheme }: FloatingNavProps
           borderColor: 'var(--nav-glass-border)',
           boxShadow: 'var(--nav-glass-shadow)',
         }}
-        className="flex items-center gap-3 sm:gap-5 md:gap-6 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-full border transition-all duration-300"
+        className="flex items-center gap-2 sm:gap-3 md:gap-4 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full border transition-all duration-300"
       >
-        {/* Navigation Links */}
-        <ul className="flex items-center gap-3 sm:gap-5 md:gap-6 m-0 p-0 list-none">
-          <li className="hidden sm:inline-block">
-            <a
-              href="#hero"
-              style={{ color: 'var(--nav-text)' }}
-              className="text-xs sm:text-[13.5px] font-medium tracking-tight opacity-90 hover:opacity-100 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
+        {/* Navigation Links with restored smooth hover animation */}
+        <ul className="flex items-center gap-1 sm:gap-1.5 m-0 p-0 list-none">
+          {navLinks.map((link, idx) => (
+            <li
+              key={link.label}
+              className={link.label === 'Overview' ? 'hidden sm:inline-block relative' : 'relative'}
             >
-              Overview
-            </a>
-          </li>
-          <li>
-            <a
-              href="#projects"
-              style={{ color: 'var(--nav-text)' }}
-              className="text-xs sm:text-[13.5px] font-medium tracking-tight opacity-90 hover:opacity-100 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
-            >
-              Projects
-            </a>
-          </li>
-          <li>
-            <a
-              href="#contact"
-              style={{ color: 'var(--nav-text)' }}
-              className="text-xs sm:text-[13.5px] font-medium tracking-tight opacity-90 hover:opacity-100 transition-opacity focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-current"
-            >
-              Contact
-            </a>
-          </li>
+              <motion.a
+                href={link.href}
+                onMouseEnter={() => setHoveredIdx(idx)}
+                onMouseLeave={() => setHoveredIdx(null)}
+                whileHover={{ y: -1, scale: 1.04 }}
+                whileTap={{ scale: 0.96 }}
+                transition={{ type: 'spring', stiffness: 450, damping: 20 }}
+                style={{ color: 'var(--nav-text)' }}
+                className="relative z-10 inline-block px-3 py-1.5 rounded-full text-xs sm:text-[13.5px] font-medium tracking-tight transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+              >
+                <AnimatePresence>
+                  {hoveredIdx === idx && (
+                    <motion.span
+                      layoutId="navHoverPill"
+                      className="absolute inset-0 rounded-full bg-black/[0.07] dark:bg-white/[0.12] -z-10"
+                      initial={{ opacity: 0, scale: 0.92 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.92 }}
+                      transition={{ type: 'spring', stiffness: 450, damping: 25 }}
+                    />
+                  )}
+                </AnimatePresence>
+                {link.label}
+              </motion.a>
+            </li>
+          ))}
         </ul>
 
-        {/* Theme Toggle Button */}
-        <button
+        {/* Theme Toggle Button with restored interactive spring & rotation hover */}
+        <motion.button
           type="button"
           onClick={onToggleTheme}
           aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+          whileHover={{ scale: 1.12, rotate: 15 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 450, damping: 18 }}
           style={{
             color: 'var(--nav-icon)',
             borderColor: 'var(--nav-toggle-border)',
           }}
-          className="flex items-center justify-center w-8 h-8 rounded-full border bg-transparent hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-200 shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+          className="flex items-center justify-center w-8 h-8 rounded-full border bg-transparent hover:bg-[#151514] hover:!text-white dark:hover:bg-white dark:hover:!text-[#151514] transition-colors duration-200 shrink-0 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current ml-1"
         >
           {isDark ? <SunIcon /> : <MoonIcon />}
-        </button>
+        </motion.button>
 
-        {/* Opaque "Get in Touch" Action Button */}
-        <a
+        {/* Opaque "Get in Touch" Action Button with smooth lift and shadow hover */}
+        <motion.a
           href="#contact"
+          whileHover={{ scale: 1.04, y: -1 }}
+          whileTap={{ scale: 0.96 }}
+          transition={{ type: 'spring', stiffness: 450, damping: 20 }}
           style={{
             color: 'var(--nav-cta-text)',
             backgroundColor: 'var(--nav-cta-bg)',
             borderColor: 'var(--nav-cta-border)',
           }}
-          className="inline-flex items-center justify-center px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight border shadow-sm shrink-0 whitespace-nowrap hover:shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+          className="inline-flex items-center justify-center px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-[13px] font-semibold tracking-tight border shadow-sm shrink-0 whitespace-nowrap hover:shadow-md transition-shadow duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current ml-1"
         >
           Get in Touch
-        </a>
+        </motion.a>
       </nav>
     </header>
   );
