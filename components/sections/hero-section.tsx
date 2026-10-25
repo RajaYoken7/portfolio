@@ -4,10 +4,11 @@ import React from 'react';
 import SculptureHero from '@/components/ui/liquid-sculpture-hero';
 
 interface HeroSectionProps {
+  theme?: 'light' | 'dark';
   onThemeChange?: (theme: 'light' | 'dark') => void;
 }
 
-export function HeroSection({ onThemeChange }: HeroSectionProps) {
+export function HeroSection({ theme = 'light', onThemeChange }: HeroSectionProps) {
   return (
     <div id="hero" className="relative w-full overflow-hidden">
       <SculptureHero
@@ -29,8 +30,8 @@ export function HeroSection({ onThemeChange }: HeroSectionProps) {
         showCredit={false}
         background="#EBE9E5"
         darkBackground="#111110"
-        theme="light"
-        themeToggle={true}
+        theme={theme}
+        themeToggle={false}
         onThemeChange={onThemeChange}
         height="100svh"
       />

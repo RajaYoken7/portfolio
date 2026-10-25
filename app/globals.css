@@ -36,6 +36,26 @@
   --input: 0 0% 90%;
   --ring: 0 0% 0%;
   --radius: 0.75rem;
+
+  /* Floating Glass Navigation Tokens (Light Theme) */
+  --nav-text: #151514;
+  --nav-icon: #151514;
+  --nav-cta-text: #151514;
+  --nav-cta-bg: #ffffff;
+  --nav-cta-border: rgba(21, 21, 20, 0.18);
+  --nav-glass-bg: rgba(255, 255, 255, 0.28);
+  --nav-glass-border: rgba(255, 255, 255, 0.55);
+}
+
+[data-theme='dark'] {
+  /* Floating Glass Navigation Tokens (Dark Theme) */
+  --nav-text: #F5F5F5;
+  --nav-icon: #F5F5F5;
+  --nav-cta-text: #F5F5F5;
+  --nav-cta-bg: #222220;
+  --nav-cta-border: rgba(255, 255, 255, 0.22);
+  --nav-glass-bg: rgba(18, 18, 18, 0.35);
+  --nav-glass-border: rgba(255, 255, 255, 0.15);
 }
 
 /* ── Minimalist Scrollbar ── */
