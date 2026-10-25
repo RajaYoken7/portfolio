@@ -1,3 +1,4 @@
+import { FloatingNav } from '@/components/sections/floating-nav';
 import { HeroSection } from '@/components/sections/hero-section';
 import { AboutSection } from '@/components/sections/about-section';
 import { ProjectsSection } from '@/components/sections/projects-section';
@@ -7,6 +8,8 @@ import { ArrowUp } from 'lucide-react';
 export default function Home() {
   return (
     <main className="bg-[#EBE9E5] text-[#151514] min-h-screen flex flex-col overflow-x-hidden selection:bg-[#151514] selection:text-white">
+      {/* Floating Translucent Navigation Bar at Top Centre */}
+      <FloatingNav />
       <HeroSection />
       <AboutSection />
       <ProjectsSection />

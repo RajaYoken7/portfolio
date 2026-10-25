@@ -18,7 +18,7 @@ export function HeroSection({ onThemeChange }: HeroSectionProps) {
           { label: 'Contact', href: '#contact' },
         ]}
         navCta={{ label: 'Get in Touch', href: '#contact' }}
-        showNav={true}
+        showNav={false}
         eyebrow="Frontend Developer, Portfolio '26"
         headline={"Crafting digital experiences with\nprecision & purpose."}
         headlineAccent="precision & purpose."
