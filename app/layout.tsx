@@ -17,18 +17,19 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: 'Raja Yoken S S R — Frontend Developer',
   description:
-    'Portfolio of Raja Yoken S S R — Frontend Developer crafting immersive digital experiences with cutting-edge interactivity, cinematic motion, and pixel-perfect interfaces.',
-  keywords: ['Frontend Developer', 'Portfolio', 'React', 'Next.js', 'Web Development', 'UI/UX'],
+    'Portfolio of Raja Yoken S S R — Frontend Developer crafting clean, modern, and high-performance digital experiences.',
+  keywords: ['Frontend Developer', 'Portfolio', 'React', 'Next.js', 'TypeScript', 'Tailwind CSS', 'UI/UX'],
   authors: [{ name: 'Raja Yoken S S R' }],
   openGraph: {
     title: 'Raja Yoken S S R — Frontend Developer',
-    description: 'Crafting Digital Experiences That Defy Gravity',
+    description: 'Minimalist, performant, and purposeful web development.',
     type: 'website',
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: '#030712',
+  themeColor: '#ffffff',
+  colorScheme: 'only light',
 };
 
 export default function RootLayout({
@@ -37,8 +38,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark scroll-smooth">
-      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-gray-950 text-white`}>
+    <html lang="en" className="scroll-smooth">
+      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-white text-black`}>
         {children}
       </body>
     </html>

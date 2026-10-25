@@ -1,56 +1,78 @@
 @import "tailwindcss";
 
-/* ── Design Tokens ── */
+/* ── Black & White Minimalist Design Tokens ── */
 :root {
   --font-inter: 'Inter', sans-serif;
   --font-outfit: 'Outfit', sans-serif;
 
-  /* shadcn tokens */
-  --background: 222.2 84% 4.9%;
-  --foreground: 210 40% 98%;
-  --card: 222.2 84% 4.9%;
-  --card-foreground: 210 40% 98%;
-  --popover: 222.2 84% 4.9%;
-  --popover-foreground: 210 40% 98%;
-  --primary: 210 40% 98%;
-  --primary-foreground: 222.2 47.4% 11.2%;
-  --secondary: 217.2 32.6% 17.5%;
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 212.7 26.8% 83.9%;
+  /* Monochromatic Palette */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #ebebeb;
+  --text-primary: #000000;
+  --text-secondary: #525252;
+  --text-muted: #737373;
+  --border-subtle: #e5e5e5;
+  --border-strong: #000000;
+
+  /* shadcn light tokens */
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 0%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 0%;
+  --primary: 0 0% 0%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 45%;
+  --accent: 0 0% 96%;
+  --accent-foreground: 0 0% 0%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 90%;
+  --input: 0 0% 90%;
+  --ring: 0 0% 0%;
   --radius: 0.75rem;
 }
 
-/* ── Custom Scrollbar ── */
+/* ── Minimalist Scrollbar ── */
 ::-webkit-scrollbar {
   width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #030712;
+  background: #ffffff;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(34, 211, 238, 0.3);
+  background: #d4d4d4;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(34, 211, 238, 0.5);
+  background: #a3a3a3;
 }
 
-/* ── Selection ── */
+/* ── Clean Selection ── */
 ::selection {
-  background: rgba(34, 211, 238, 0.25);
-  color: white;
+  background: #000000;
+  color: #ffffff;
 }
 
-/* Prevent Spline canvas from blocking scroll on mobile */
-canvas {
-  pointer-events: auto;
-  touch-action: none;
+/* ── Typography & Smooth Flow ── */
+html {
+  color-scheme: only light !important;
+  background-color: #ffffff !important;
+}
+
+body {
+  color-scheme: only light !important;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+main {
+  background-color: #ffffff !important;
+  color: #000000 !important;
 }

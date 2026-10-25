@@ -1,14 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ContainerScroll } from '@/components/ui/container-scroll-animation';
-import { DottedSurface } from '@/components/ui/dotted-surface';
-import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
+import { useRef } from 'react';
+import { Send, Loader2, CheckCircle, AlertCircle, Mail, MapPin, Clock, ArrowUpRight } from 'lucide-react';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
+
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-60px' });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -35,76 +38,140 @@ export function ContactSection() {
         setStatus('error');
         setErrorMessage(data.error || 'Failed to send message.');
       }
-    } catch (error) {
+    } catch {
       setStatus('error');
       setErrorMessage('A network error occurred.');
     }
   };
 
   return (
-    <section id="contact" className="relative w-full bg-gray-950 overflow-hidden">
-      {/* 3D Dotted Background */}
-      <DottedSurface className="absolute inset-0 w-full h-full" />
-
-      {/* Foreground Container Scroll */}
-      <div className="relative z-10 w-full">
-        <ContainerScroll
-          titleComponent={
-            <>
-              <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight mb-2">
-                Let&apos;s Build Something{' '}
-                <span className="bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
-                  Extraordinary
-                </span>
-              </h2>
-              <p className="text-white/40 text-sm md:text-base font-medium max-w-xl mx-auto mb-8">
-                Ready to elevate your digital presence? Send a request and let&apos;s turn your vision into reality.
-              </p>
-            </>
-          }
+    <section id="contact" className="relative w-full bg-white py-24 md:py-32">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        
+        {/* Section Header */}
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col gap-3 max-w-2xl mb-16"
         >
-          {/* Glassmorphism Form Container inside the Card */}
-          <div className="flex flex-col md:flex-row h-full w-full bg-black/40 backdrop-blur-xl relative">
-            
-            {/* Left side: Info / Graphic */}
-            <div className="hidden md:flex flex-col justify-between w-1/2 p-8 md:p-12 border-r border-white/5 bg-gradient-to-br from-cyan-500/10 to-violet-500/5">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-400/10 mb-6">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-                  <span className="text-cyan-400 text-xs font-mono tracking-widest">AVAILABLE NOW</span>
+          <div className="inline-flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-[#F5F5F5] border border-[#E5E5E5]">
+            <span className="w-1.5 h-1.5 rounded-full bg-black" />
+            <span className="text-[11px] font-mono tracking-widest uppercase text-black font-medium">
+              Direct Communication
+            </span>
+          </div>
+
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-black">
+            Let&apos;s Build Something Meaningful.
+          </h2>
+
+          <p className="text-sm md:text-base text-[#525252] leading-relaxed">
+            Have a project in mind, need frontend engineering consultation, or want to discuss full-time opportunities? 
+            Send an inquiry below or reach out directly.
+          </p>
+        </motion.div>
+
+        {/* Contact Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          {/* Left Column: Direct Info & Availability */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="lg:col-span-5 flex flex-col gap-8"
+          >
+            {/* Info Cards */}
+            <div className="flex flex-col gap-4">
+              
+              {/* Email Card */}
+              <a
+                href="mailto:rajayoken072@gmail.com"
+                className="group p-5 rounded-xl border border-[#E5E5E5] bg-[#F5F5F5] hover:bg-white hover:border-black transition-all duration-200 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-white border border-[#E5E5E5] flex items-center justify-center text-black">
+                    <Mail className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono uppercase text-[#737373]">Direct Email</span>
+                    <p className="text-sm font-semibold text-black">rajayoken072@gmail.com</p>
+                  </div>
                 </div>
-                <h3 className="text-3xl font-bold text-white mb-4">Initialize<br/>Connection.</h3>
-                <p className="text-white/50 leading-relaxed text-sm">
-                  Fill out the form with your project details. I typically respond within 24 hours to discuss architecture, timeline, and next steps.
-                </p>
+                <ArrowUpRight className="w-4 h-4 text-[#737373] group-hover:text-black transition-colors" />
+              </a>
+
+              {/* Response Time Card */}
+              <div className="p-5 rounded-xl border border-[#E5E5E5] bg-[#F5F5F5] flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg bg-white border border-[#E5E5E5] flex items-center justify-center text-black">
+                  <Clock className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-mono uppercase text-[#737373]">Response Time</span>
+                  <p className="text-sm font-semibold text-black">Typically within 24 hours</p>
+                </div>
               </div>
 
-              <div className="flex items-center gap-4 text-white/30 text-xs font-mono">
-                <span>SECURE_CHANNEL_ESTABLISHED</span>
-                <div className="flex-1 h-px bg-white/10" />
+              {/* Location Card */}
+              <div className="p-5 rounded-xl border border-[#E5E5E5] bg-[#F5F5F5] flex items-center gap-4">
+                <div className="w-10 h-10 rounded-lg bg-white border border-[#E5E5E5] flex items-center justify-center text-black">
+                  <MapPin className="w-4 h-4" />
+                </div>
+                <div>
+                  <span className="text-[11px] font-mono uppercase text-[#737373]">Location & Modality</span>
+                  <p className="text-sm font-semibold text-black">Available Globally · Remote</p>
+                </div>
               </div>
             </div>
 
-            {/* Right side: The Form */}
-            <div className="w-full md:w-1/2 p-6 md:p-12 flex flex-col justify-center relative">
-              {/* Form Status Overlays */}
-              {status === 'success' && (
-                <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm animate-in fade-in duration-300">
-                  <CheckCircle className="w-16 h-16 text-emerald-400 mb-4" />
-                  <h3 className="text-2xl font-bold text-white mb-2">Transmission Sent</h3>
-                  <p className="text-white/60 text-center px-6">Your message has been routed securely. I will be in touch shortly.</p>
-                  <button 
-                    onClick={() => setStatus('idle')}
-                    className="mt-6 px-6 py-2 rounded-full border border-white/20 text-white/80 hover:bg-white/10 transition-colors text-sm font-medium"
-                  >
-                    Send Another
-                  </button>
-                </div>
-              )}
+            {/* Note on Process */}
+            <div className="p-6 rounded-xl border border-[#E5E5E5] bg-white flex flex-col gap-2">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-black font-semibold">
+                Engagement Process
+              </span>
+              <p className="text-xs text-[#525252] leading-relaxed">
+                Every project begins with a quick conversation to define requirements, architecture scope, 
+                and delivery timelines. Clean specifications and direct communication guarantee efficient execution.
+              </p>
+            </div>
+          </motion.div>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full max-w-md mx-auto">
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="name" className="text-xs font-medium text-white/50 uppercase tracking-wider">Name / Alias</label>
+          {/* Right Column: Clean Form */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="lg:col-span-7 bg-[#F5F5F5] p-8 md:p-10 rounded-2xl border border-[#E5E5E5] relative"
+          >
+            {/* Success Overlay */}
+            {status === 'success' && (
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-white p-8 rounded-2xl border border-[#E5E5E5] animate-in fade-in duration-200">
+                <div className="w-12 h-12 rounded-full bg-[#F5F5F5] border border-[#E5E5E5] flex items-center justify-center text-black mb-4">
+                  <CheckCircle className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-black mb-1">Message Sent Successfully</h3>
+                <p className="text-xs text-[#525252] text-center max-w-sm mb-6">
+                  Thank you for reaching out. I have received your message and will review it promptly.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setStatus('idle')}
+                  className="px-5 py-2.5 rounded-lg border border-[#E5E5E5] bg-white text-xs font-semibold text-black hover:bg-[#F5F5F5] transition-colors"
+                >
+                  Send Another Message
+                </button>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {/* Name Field */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="name" className="text-xs font-mono uppercase tracking-wider text-black font-medium">
+                    Your Name
+                  </label>
                   <input
                     type="text"
                     id="name"
@@ -113,13 +180,16 @@ export function ContactSection() {
                     onChange={handleChange}
                     required
                     disabled={status === 'loading'}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all disabled:opacity-50"
-                    placeholder="Jane Doe"
+                    placeholder="e.g. Alex Morgan"
+                    className="w-full bg-white border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-black placeholder:text-[#A3A3A3] focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all disabled:opacity-50"
                   />
                 </div>
 
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="email" className="text-xs font-medium text-white/50 uppercase tracking-wider">Return Address (Email)</label>
+                {/* Email Field */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="email" className="text-xs font-mono uppercase tracking-wider text-black font-medium">
+                    Email Address
+                  </label>
                   <input
                     type="email"
                     id="email"
@@ -128,54 +198,59 @@ export function ContactSection() {
                     onChange={handleChange}
                     required
                     disabled={status === 'loading'}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-transparent transition-all disabled:opacity-50"
-                    placeholder="jane@example.com"
+                    placeholder="alex@company.com"
+                    className="w-full bg-white border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-black placeholder:text-[#A3A3A3] focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all disabled:opacity-50"
                   />
                 </div>
+              </div>
 
-                <div className="flex flex-col gap-1.5">
-                  <label htmlFor="message" className="text-xs font-medium text-white/50 uppercase tracking-wider">Project Details</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    disabled={status === 'loading'}
-                    rows={4}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-white/20 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent transition-all resize-none disabled:opacity-50"
-                    placeholder="Describe what we are building..."
-                  />
-                </div>
-
-                {status === 'error' && (
-                  <div className="flex items-center gap-2 text-red-400 text-sm bg-red-400/10 p-3 rounded-lg border border-red-400/20">
-                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                    <span>{errorMessage}</span>
-                  </div>
-                )}
-
-                <button
-                  type="submit"
+              {/* Message Field */}
+              <div className="flex flex-col gap-2">
+                <label htmlFor="message" className="text-xs font-mono uppercase tracking-wider text-black font-medium">
+                  Project Details or Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
                   disabled={status === 'loading'}
-                  className="mt-2 group relative w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-violet-500 text-white font-bold text-sm hover:opacity-90 transition-all shadow-[0_0_20px_rgba(34,211,238,0.2)] disabled:opacity-70"
-                >
-                  {status === 'loading' ? (
-                    <>
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      Encrypting & Sending...
-                    </>
-                  ) : (
-                    <>
-                      <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                      Dispatch Request
-                    </>
-                  )}
-                </button>
-              </form>
-            </div>
-          </div>
-        </ContainerScroll>
+                  rows={5}
+                  placeholder="Tell me about what you are building, timeline expectations, or any specific questions..."
+                  className="w-full bg-white border border-[#E5E5E5] rounded-lg px-4 py-3 text-sm text-black placeholder:text-[#A3A3A3] focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all resize-none disabled:opacity-50"
+                />
+              </div>
+
+              {/* Error Message */}
+              {status === 'error' && (
+                <div className="flex items-center gap-2 p-3 rounded-lg border border-[#E5E5E5] bg-white text-xs text-red-600">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={status === 'loading'}
+                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-black text-white text-sm font-medium hover:bg-neutral-800 transition-colors duration-200 disabled:opacity-50 cursor-pointer"
+              >
+                {status === 'loading' ? (
+                  <>
+                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                    <span>Transmitting Message...</span>
+                  </>
+                ) : (
+                  <>
+                    <Send className="w-4 h-4" />
+                    <span>Send Inquiry</span>
+                  </>
+                )}
+              </button>
+            </form>
+          </motion.div>
+        </div>
       </div>
     </section>
   );
