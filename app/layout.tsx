@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Outfit } from 'next/font/google';
 import './globals.css';
+import { ThemeProvider } from '@/components/theme-provider';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -28,9 +29,27 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#ffffff',
-  colorScheme: 'only light',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#EBE9E5' },
+    { media: '(prefers-color-scheme: dark)', color: '#111110' },
+  ],
 };
+
+const themeInitScript = `
+  try {
+    var stored = localStorage.getItem('portfolio-theme');
+    var isDark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.style.colorScheme = 'dark';
+    } else {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.documentElement.style.colorScheme = 'light';
+    }
+  } catch (e) {}
+`;
 
 export default function RootLayout({
   children,
@@ -38,9 +57,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased bg-white text-black`}>
-        {children}
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className={`${inter.variable} ${outfit.variable} font-sans antialiased`}>
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

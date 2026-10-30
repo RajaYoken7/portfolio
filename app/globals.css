@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
-/* ── Black & White Minimalist Design Tokens ── */
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+
+/* ── Minimalist Architectural Design Tokens ── */
 :root {
   --font-inter: 'Inter', sans-serif;
   --font-outfit: 'Outfit', sans-serif;
 
-  /* Monochromatic Palette */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --bg-tertiary: #ebebeb;
-  --text-primary: #000000;
-  --text-secondary: #525252;
-  --text-muted: #737373;
-  --border-subtle: #e5e5e5;
-  --border-strong: #000000;
+  /* Global Theme Tokens (Light Mode) */
+  --bg-page: #EBE9E5;
+  --text-page: #151514;
+  --text-muted: #6A6863;
+  --card-bg: #F4F2EE;
+  --card-border: #D5D2CB;
+  --border-divider: #DCD9D4;
 
   /* shadcn light tokens */
   --background: 0 0% 100%;
@@ -40,14 +40,41 @@
   /* Floating Glass Navigation Tokens (Light Theme) */
   --nav-text: #151514;
   --nav-icon: #151514;
-  --nav-cta-text: #151514;
-  --nav-cta-bg: #ffffff;
+  --nav-cta-text: #ffffff;
+  --nav-cta-bg: #0B132B;
   --nav-cta-border: rgba(21, 21, 20, 0.18);
   --nav-glass-bg: rgba(255, 255, 255, 0.28);
   --nav-glass-border: rgba(255, 255, 255, 0.55);
 }
 
-[data-theme='dark'] {
+.dark, [data-theme='dark'] {
+  /* Global Theme Tokens (Dark Mode) */
+  --bg-page: #111110;
+  --text-page: #F1EFEA;
+  --text-muted: #8E8B85;
+  --card-bg: #181816;
+  --card-border: #262624;
+  --border-divider: #242422;
+
+  /* shadcn dark tokens */
+  --background: 0 0% 6.7%;
+  --foreground: 0 0% 94.5%;
+  --card: 0 0% 9.4%;
+  --card-foreground: 0 0% 94.5%;
+  --popover: 0 0% 9.4%;
+  --popover-foreground: 0 0% 94.5%;
+  --primary: 0 0% 94.5%;
+  --primary-foreground: 0 0% 6.7%;
+  --secondary: 0 0% 14%;
+  --secondary-foreground: 0 0% 94.5%;
+  --muted: 0 0% 14%;
+  --muted-foreground: 0 0% 60%;
+  --accent: 0 0% 14%;
+  --accent-foreground: 0 0% 94.5%;
+  --border: 0 0% 18%;
+  --input: 0 0% 18%;
+  --ring: 0 0% 94.5%;
+
   /* Floating Glass Navigation Tokens (Dark Theme) */
   --nav-text: #F5F5F5;
   --nav-icon: #F5F5F5;
@@ -64,14 +91,15 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #ffffff;
+  background: var(--bg-page);
 }
 ::-webkit-scrollbar-thumb {
   background: #d4d4d4;
   border-radius: 3px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: #a3a3a3;
+.dark ::-webkit-scrollbar-thumb,
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: #333330;
 }
 
 /* ── Clean Selection ── */
@@ -80,17 +108,25 @@
   color: #ffffff;
 }
 
+.dark ::selection,
+[data-theme='dark'] ::selection {
+  background: #F1EFEA;
+  color: #111110;
+}
+
 /* ── Typography & Smooth Flow ── */
 html {
   scroll-behavior: smooth;
-  background-color: #EBE9E5;
-  color: #151514;
+  background-color: var(--bg-page);
+  color: var(--text-page);
   overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body {
-  background-color: #EBE9E5;
-  color: #151514;
+  background-color: var(--bg-page);
+  color: var(--text-page);
   overflow-x: hidden;
   min-height: 100vh;
+  transition: background-color 0.4s ease, color 0.4s ease;
 }

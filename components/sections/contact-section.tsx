@@ -45,7 +45,10 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative w-full bg-[#EBE9E5] text-[#151514] py-24 md:py-32 border-t border-[#DCD9D4]">
+    <section
+      id="contact"
+      className="relative w-full bg-[#EBE9E5] text-[#151514] dark:bg-[#111110] dark:text-[#F1EFEA] py-24 md:py-32 border-t border-[#DCD9D4] dark:border-[#242422] transition-colors duration-500"
+    >
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         
         {/* Section Header */}
@@ -56,18 +59,18 @@ export function ContactSection() {
           transition={{ duration: 0.5 }}
           className="flex flex-col gap-3 max-w-2xl mb-16"
         >
-          <div className="inline-flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-[#E0DDD7] border border-[#D0CDC5]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#151514]" />
-            <span className="text-[11px] font-mono tracking-widest uppercase text-[#151514] font-medium">
+          <div className="inline-flex items-center gap-2 w-fit px-3 py-1 rounded-full bg-[#E0DDD7] border border-[#D0CDC5] dark:bg-[#1F1F1D] dark:border-[#2E2E2A] transition-colors">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#151514] dark:bg-[#F1EFEA] transition-colors" />
+            <span className="text-[11px] font-mono tracking-widest uppercase text-[#151514] dark:text-[#F1EFEA] font-medium transition-colors">
               Direct Communication
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#151514]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-[#151514] dark:text-[#F1EFEA] transition-colors">
             Let&apos;s Build Something Meaningful.
           </h2>
 
-          <p className="text-sm md:text-base text-[#525250] leading-relaxed">
+          <p className="text-sm md:text-base text-[#525250] dark:text-[#8E8B85] leading-relaxed transition-colors">
             Have a project in mind, need frontend engineering consultation, or want to discuss full-time opportunities? 
             Send an inquiry below or reach out directly.
           </p>
@@ -89,49 +92,49 @@ export function ContactSection() {
               {/* Email Card */}
               <a
                 href="mailto:rajayoken072@gmail.com"
-                className="group p-5 rounded-xl border border-[#D5D2CB] bg-[#F4F2EE] hover:bg-white hover:border-[#151514] transition-all duration-200 flex items-center justify-between"
+                className="group p-5 rounded-xl border border-[#D5D2CB] bg-[#F4F2EE] hover:bg-white hover:border-[#151514] dark:border-[#262624] dark:bg-[#181816] dark:hover:bg-[#20201D] dark:hover:border-[#F1EFEA]/40 transition-all duration-200 flex items-center justify-between"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-white border border-[#D5D2CB] flex items-center justify-center text-[#151514]">
+                  <div className="w-10 h-10 rounded-lg bg-white border border-[#D5D2CB] dark:bg-[#222220] dark:border-[#2E2E2A] flex items-center justify-center text-[#151514] dark:text-[#F1EFEA] transition-colors">
                     <Mail className="w-4 h-4" />
                   </div>
                   <div>
-                    <span className="text-[11px] font-mono uppercase text-[#6A6863]">Direct Email</span>
-                    <p className="text-sm font-semibold text-[#151514]">rajayoken072@gmail.com</p>
+                    <span className="text-[11px] font-mono uppercase text-[#6A6863] dark:text-[#8E8B85] transition-colors">Direct Email</span>
+                    <p className="text-sm font-semibold text-[#151514] dark:text-[#F1EFEA] transition-colors">rajayoken072@gmail.com</p>
                   </div>
                 </div>
-                <ArrowUpRight className="w-4 h-4 text-[#6A6863] group-hover:text-[#151514] transition-colors" />
+                <ArrowUpRight className="w-4 h-4 text-[#6A6863] group-hover:text-[#151514] dark:text-[#8E8B85] dark:group-hover:text-[#F1EFEA] transition-colors" />
               </a>
 
               {/* Response Time Card */}
-              <div className="p-5 rounded-xl border border-[#D5D2CB] bg-[#F4F2EE] flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-white border border-[#D5D2CB] flex items-center justify-center text-[#151514]">
+              <div className="p-5 rounded-xl border border-[#D5D2CB] bg-[#F4F2EE] dark:border-[#262624] dark:bg-[#181816] flex items-center gap-4 transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-white border border-[#D5D2CB] dark:bg-[#222220] dark:border-[#2E2E2A] flex items-center justify-center text-[#151514] dark:text-[#F1EFEA] transition-colors">
                   <Clock className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono uppercase text-[#6A6863]">Response Time</span>
-                  <p className="text-sm font-semibold text-[#151514]">Typically within 24 hours</p>
+                  <span className="text-[11px] font-mono uppercase text-[#6A6863] dark:text-[#8E8B85] transition-colors">Response Time</span>
+                  <p className="text-sm font-semibold text-[#151514] dark:text-[#F1EFEA] transition-colors">Typically within 24 hours</p>
                 </div>
               </div>
 
               {/* Location Card */}
-              <div className="p-5 rounded-xl border border-[#D5D2CB] bg-[#F4F2EE] flex items-center gap-4">
-                <div className="w-10 h-10 rounded-lg bg-white border border-[#D5D2CB] flex items-center justify-center text-[#151514]">
+              <div className="p-5 rounded-xl border border-[#D5D2CB] bg-[#F4F2EE] dark:border-[#262624] dark:bg-[#181816] flex items-center gap-4 transition-colors">
+                <div className="w-10 h-10 rounded-lg bg-white border border-[#D5D2CB] dark:bg-[#222220] dark:border-[#2E2E2A] flex items-center justify-center text-[#151514] dark:text-[#F1EFEA] transition-colors">
                   <MapPin className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono uppercase text-[#6A6863]">Location &amp; Modality</span>
-                  <p className="text-sm font-semibold text-[#151514]">Available Globally · Remote</p>
+                  <span className="text-[11px] font-mono uppercase text-[#6A6863] dark:text-[#8E8B85] transition-colors">Location &amp; Modality</span>
+                  <p className="text-sm font-semibold text-[#151514] dark:text-[#F1EFEA] transition-colors">Available Globally · Remote</p>
                 </div>
               </div>
             </div>
 
             {/* Note on Process */}
-            <div className="p-6 rounded-xl border border-[#D5D2CB] bg-white flex flex-col gap-2">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#151514] font-semibold">
+            <div className="p-6 rounded-xl border border-[#D5D2CB] bg-white dark:border-[#262624] dark:bg-[#181816] flex flex-col gap-2 transition-colors">
+              <span className="text-[11px] font-mono uppercase tracking-wider text-[#151514] dark:text-[#F1EFEA] font-semibold transition-colors">
                 Engagement Process
               </span>
-              <p className="text-xs text-[#525250] leading-relaxed">
+              <p className="text-xs text-[#525250] dark:text-[#8E8B85] leading-relaxed transition-colors">
                 Every project begins with a quick conversation to define requirements, architecture scope, 
                 and delivery timelines. Clean specifications and direct communication guarantee efficient execution.
               </p>
@@ -143,22 +146,22 @@ export function ContactSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="lg:col-span-7 bg-[#F4F2EE] p-8 md:p-10 rounded-2xl border border-[#D5D2CB] relative"
+            className="lg:col-span-7 bg-[#F4F2EE] dark:bg-[#181816] p-8 md:p-10 rounded-2xl border border-[#D5D2CB] dark:border-[#262624] relative transition-colors"
           >
             {/* Success Overlay */}
             {status === 'success' && (
-              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#F4F2EE] p-8 rounded-2xl border border-[#D5D2CB] animate-in fade-in duration-200">
-                <div className="w-12 h-12 rounded-full bg-white border border-[#D5D2CB] flex items-center justify-center text-[#151514] mb-4">
+              <div className="absolute inset-0 z-20 flex flex-col items-center justify-center bg-[#F4F2EE] dark:bg-[#181816] p-8 rounded-2xl border border-[#D5D2CB] dark:border-[#262624] animate-in fade-in duration-200">
+                <div className="w-12 h-12 rounded-full bg-white dark:bg-[#222220] border border-[#D5D2CB] dark:border-[#2E2E2A] flex items-center justify-center text-[#151514] dark:text-[#F1EFEA] mb-4 transition-colors">
                   <CheckCircle className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-bold text-[#151514] mb-1">Message Sent Successfully</h3>
-                <p className="text-xs text-[#525250] text-center max-w-sm mb-6">
+                <h3 className="text-xl font-bold text-[#151514] dark:text-[#F1EFEA] mb-1 transition-colors">Message Sent Successfully</h3>
+                <p className="text-xs text-[#525250] dark:text-[#8E8B85] text-center max-w-sm mb-6 transition-colors">
                   Thank you for reaching out. I have received your message and will review it promptly.
                 </p>
                 <button
                   type="button"
                   onClick={() => setStatus('idle')}
-                  className="px-5 py-2.5 rounded-lg border border-[#D5D2CB] bg-white text-xs font-semibold text-[#151514] hover:bg-[#EBE9E5] transition-colors"
+                  className="px-5 py-2.5 rounded-lg border border-[#D5D2CB] dark:border-[#2E2E2A] bg-white dark:bg-[#222220] text-xs font-semibold text-[#151514] dark:text-[#F1EFEA] hover:bg-[#EBE9E5] dark:hover:bg-[#2A2A26] transition-colors"
                 >
                   Send Another Message
                 </button>
@@ -169,7 +172,7 @@ export function ContactSection() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {/* Name Field */}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="name" className="text-xs font-mono uppercase tracking-wider text-[#151514] font-medium">
+                  <label htmlFor="name" className="text-xs font-mono uppercase tracking-wider text-[#151514] dark:text-[#F1EFEA] font-medium transition-colors">
                     Your Name
                   </label>
                   <input
@@ -181,13 +184,13 @@ export function ContactSection() {
                     required
                     disabled={status === 'loading'}
                     placeholder="e.g. Alex Morgan"
-                    className="w-full bg-white border border-[#D5D2CB] rounded-lg px-4 py-3 text-sm text-[#151514] placeholder:text-[#9E9B95] focus:outline-none focus:border-[#151514] focus:ring-1 focus:ring-[#151514] transition-all disabled:opacity-50"
+                    className="w-full bg-white dark:bg-[#121211] border border-[#D5D2CB] dark:border-[#2E2E2A] rounded-lg px-4 py-3 text-sm text-[#151514] dark:text-[#F1EFEA] placeholder:text-[#9E9B95] dark:placeholder:text-[#6A6863] focus:outline-none focus:border-[#151514] dark:focus:border-[#F1EFEA] focus:ring-1 focus:ring-[#151514] dark:focus:ring-[#F1EFEA] transition-all disabled:opacity-50"
                   />
                 </div>
 
                 {/* Email Field */}
                 <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="text-xs font-mono uppercase tracking-wider text-[#151514] font-medium">
+                  <label htmlFor="email" className="text-xs font-mono uppercase tracking-wider text-[#151514] dark:text-[#F1EFEA] font-medium transition-colors">
                     Email Address
                   </label>
                   <input
@@ -199,14 +202,14 @@ export function ContactSection() {
                     required
                     disabled={status === 'loading'}
                     placeholder="alex@company.com"
-                    className="w-full bg-white border border-[#D5D2CB] rounded-lg px-4 py-3 text-sm text-[#151514] placeholder:text-[#9E9B95] focus:outline-none focus:border-[#151514] focus:ring-1 focus:ring-[#151514] transition-all disabled:opacity-50"
+                    className="w-full bg-white dark:bg-[#121211] border border-[#D5D2CB] dark:border-[#2E2E2A] rounded-lg px-4 py-3 text-sm text-[#151514] dark:text-[#F1EFEA] placeholder:text-[#9E9B95] dark:placeholder:text-[#6A6863] focus:outline-none focus:border-[#151514] dark:focus:border-[#F1EFEA] focus:ring-1 focus:ring-[#151514] dark:focus:ring-[#F1EFEA] transition-all disabled:opacity-50"
                   />
                 </div>
               </div>
 
               {/* Message Field */}
               <div className="flex flex-col gap-2">
-                <label htmlFor="message" className="text-xs font-mono uppercase tracking-wider text-[#151514] font-medium">
+                <label htmlFor="message" className="text-xs font-mono uppercase tracking-wider text-[#151514] dark:text-[#F1EFEA] font-medium transition-colors">
                   Project Details or Message
                 </label>
                 <textarea
@@ -218,13 +221,13 @@ export function ContactSection() {
                   disabled={status === 'loading'}
                   rows={5}
                   placeholder="Tell me about what you are building, timeline expectations, or any specific questions..."
-                  className="w-full bg-white border border-[#D5D2CB] rounded-lg px-4 py-3 text-sm text-[#151514] placeholder:text-[#9E9B95] focus:outline-none focus:border-[#151514] focus:ring-1 focus:ring-[#151514] transition-all resize-none disabled:opacity-50"
+                  className="w-full bg-white dark:bg-[#121211] border border-[#D5D2CB] dark:border-[#2E2E2A] rounded-lg px-4 py-3 text-sm text-[#151514] dark:text-[#F1EFEA] placeholder:text-[#9E9B95] dark:placeholder:text-[#6A6863] focus:outline-none focus:border-[#151514] dark:focus:border-[#F1EFEA] focus:ring-1 focus:ring-[#151514] dark:focus:ring-[#F1EFEA] transition-all resize-none disabled:opacity-50"
                 />
               </div>
 
               {/* Error Message */}
               {status === 'error' && (
-                <div className="flex items-center gap-2 p-3 rounded-lg border border-red-300 bg-red-50 text-xs text-red-700">
+                <div className="flex items-center gap-2 p-3 rounded-lg border border-red-300 dark:border-red-900/60 bg-red-50 dark:bg-red-950/40 text-xs text-red-700 dark:text-red-400">
                   <AlertCircle className="w-4 h-4 shrink-0" />
                   <span>{errorMessage}</span>
                 </div>
@@ -234,11 +237,11 @@ export function ContactSection() {
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-[#111110] text-[#F1EFEA] text-sm font-semibold hover:bg-black transition-colors duration-200 disabled:opacity-50 cursor-pointer shadow-sm"
+                className="w-full flex items-center justify-center gap-2 px-6 py-3.5 rounded-lg bg-[#111110] text-[#F1EFEA] dark:bg-[#F1EFEA] dark:text-[#111110] text-sm font-semibold hover:bg-black dark:hover:bg-white transition-colors duration-200 disabled:opacity-50 cursor-pointer shadow-sm"
               >
                 {status === 'loading' ? (
                   <>
-                    <Loader2 className="w-4 h-4 animate-spin text-white" />
+                    <Loader2 className="w-4 h-4 animate-spin" />
                     <span>Transmitting Message...</span>
                   </>
                 ) : (

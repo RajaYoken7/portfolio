@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { LiquidNavbar, NimbusIcons } from '@/components/ui/liquid-glass-navbar';
+import { useTheme } from '@/components/theme-provider';
 
 interface FloatingNavProps {
   theme?: 'light' | 'dark';
@@ -32,8 +33,11 @@ const MoonIcon = () => (
   </svg>
 );
 
-export function FloatingNav({ theme = 'light', onToggleTheme }: FloatingNavProps) {
+export function FloatingNav({ theme: propTheme, onToggleTheme }: FloatingNavProps) {
+  const { theme: ctxTheme, toggleTheme: ctxToggleTheme } = useTheme();
+  const theme = propTheme ?? ctxTheme;
   const isDark = theme === 'dark';
+  const handleToggle = onToggleTheme ?? ctxToggleTheme;
   const [activeIdx, setActiveIdx] = useState(0);
 
   const navItems = [
@@ -88,10 +92,10 @@ export function FloatingNav({ theme = 'light', onToggleTheme }: FloatingNavProps
       />
 
       {/* Theme Toggle Button styled with matching liquid glass aesthetics */}
-      {onToggleTheme && (
+      {handleToggle && (
         <motion.button
           type="button"
-          onClick={onToggleTheme}
+          onClick={handleToggle}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.92 }}
           aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
@@ -118,15 +122,18 @@ export function FloatingNav({ theme = 'light', onToggleTheme }: FloatingNavProps
         className={`hidden md:inline-flex h-[42px] px-4 rounded-full items-center justify-center text-xs font-semibold tracking-tight border transition-colors duration-300 backdrop-blur-md shadow-lg shrink-0 ${
           isDark
             ? 'bg-white/10 hover:bg-white/20 border-white/25 text-[#F1F7FF]'
-            : 'bg-[#0B132B] hover:bg-[#1a2544] border-black/10 text-white'
+            : 'bg-[#0B132B] hover:bg-[#1a2544] border-black/10 text-white !text-white hover:!text-white'
         }`}
         style={{
+          color: isDark ? '#F1F7FF' : '#FFFFFF',
           boxShadow: isDark
             ? 'inset 0 1px 1px rgba(255,255,255,0.2), 0 8px 24px -8px rgba(0,0,0,0.5)'
             : '0 8px 24px -8px rgba(0,40,90,0.3)',
         }}
       >
-        Get in Touch
+        <span className={!isDark ? 'text-white !text-white' : undefined} style={{ color: isDark ? '#F1F7FF' : '#FFFFFF' }}>
+          Get in Touch
+        </span>
       </motion.a>
     </motion.header>
   );
