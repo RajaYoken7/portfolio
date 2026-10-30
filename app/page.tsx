@@ -7,6 +7,7 @@ import { HeroSection } from '@/components/sections/hero-section';
 import { AboutSection } from '@/components/sections/about-section';
 import { ProjectsSection } from '@/components/sections/projects-section';
 import { ContactSection } from '@/components/sections/contact-section';
+import { TestimonialsSection } from '@/components/sections/testimonials-section';
 import { ArrowUp } from 'lucide-react';
 
 export default function Home() {
@@ -33,6 +34,9 @@ export default function Home() {
       
       {/* Contact Section */}
       <ContactSection />
+
+      {/* 3D Testimonials Wall */}
+      <TestimonialsSection />
 
       {/* Cohesive Minimalist Footer */}
       <footer

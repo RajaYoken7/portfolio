@@ -1018,6 +1018,9 @@ class LiquidEngine {
 export interface SculptureHeroLink {
   label: string
   href: string
+  download?: boolean | string
+  target?: string
+  rel?: string
 }
 
 export interface SculptureHeroProps {
@@ -1041,7 +1044,7 @@ export interface SculptureHeroProps {
   headline?: string
   /** Words of the headline to set in the italic accent face. */
   headlineAccent?: string
-  body?: string
+  body?: React.ReactNode
   primaryCta?: SculptureHeroLink
   secondaryCta?: SculptureHeroLink
   hint?: string
@@ -1128,8 +1131,8 @@ const DEFAULTS = {
   headline: "Form that\nanswers back.",
   headlineAccent: "answers back.",
   body: "We shape products, identities and spaces with the precision of engineering and the patience of craft — work that holds up under attention.",
-  primaryCta: { label: "Start a project", href: "#" },
-  secondaryCta: { label: "Selected work", href: "#" },
+  primaryCta: { label: "Start a project", href: "#" } as SculptureHeroLink,
+  secondaryCta: { label: "Selected work", href: "#" } as SculptureHeroLink,
   hint: "Move across the form",
   hintTouch: "Touch the form",
   background: "#EBE9E5",
@@ -1341,8 +1344,8 @@ export default function SculptureHero(props: SculptureHeroProps) {
     headline = DEFAULTS.headline,
     headlineAccent = DEFAULTS.headlineAccent,
     body = DEFAULTS.body,
-    primaryCta = DEFAULTS.primaryCta,
-    secondaryCta = DEFAULTS.secondaryCta,
+    primaryCta = DEFAULTS.primaryCta as SculptureHeroLink | undefined,
+    secondaryCta = DEFAULTS.secondaryCta as SculptureHeroLink | undefined,
     hint = DEFAULTS.hint,
     hintTouch = DEFAULTS.hintTouch,
     background: lightBackground = DEFAULTS.background,
@@ -1735,16 +1738,28 @@ export default function SculptureHero(props: SculptureHeroProps) {
           <h1 className="sh-h1">{renderHeadline(headline, headlineAccent)}</h1>
         </div>
         <div className="sh-aside">
-          {body ? <p className="sh-body">{body}</p> : null}
+          {body ? <div className="sh-body">{body}</div> : null}
           <div className="sh-ctas">
             {primaryCta && primaryCta.label ? (
-              <a className="sh-btn" href={primaryCta.href}>
+              <a
+                className="sh-btn"
+                href={primaryCta.href}
+                download={primaryCta.download}
+                target={primaryCta.target}
+                rel={primaryCta.target === '_blank' ? 'noopener noreferrer' : primaryCta.rel}
+              >
                 {primaryCta.label}
                 <Arrow />
               </a>
             ) : null}
             {secondaryCta && secondaryCta.label ? (
-              <a className="sh-txt" href={secondaryCta.href}>
+              <a
+                className="sh-txt"
+                href={secondaryCta.href}
+                download={secondaryCta.download}
+                target={secondaryCta.target}
+                rel={secondaryCta.target === '_blank' ? 'noopener noreferrer' : secondaryCta.rel}
+              >
                 {secondaryCta.label}
                 <Arrow />
               </a>

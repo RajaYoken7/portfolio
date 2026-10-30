@@ -20,12 +20,17 @@ export function HeroSection({ theme = 'light', onThemeChange }: HeroSectionProps
         ]}
         navCta={{ label: 'Get in Touch', href: '#contact' }}
         showNav={false}
-        eyebrow="Frontend Developer, Portfolio '26"
+        eyebrow="Full-Stack Engineer, Portfolio '26"
         headline={"Crafting digital experiences with\nprecision & purpose."}
         headlineAccent="precision & purpose."
-        body="I am a frontend developer specializing in scalable React and Next.js applications. My focus is on minimal aesthetics, rock-solid engineering, performance optimization, and fluid user interactions that stand the test of time."
-        primaryCta={{ label: 'View Selected Work', href: '#projects' }}
-        secondaryCta={{ label: 'Contact Directly', href: '#contact' }}
+        body="Raja Yoken — Full-stack engineer building AI-powered products and scalable web applications."
+        primaryCta={{
+          label: 'Download Resume',
+          href: '/Raja_Yoken_Resume.pdf',
+          download: 'Raja_Yoken_Resume.pdf',
+          target: '_blank',
+        }}
+        secondaryCta={{ label: 'View Selected Work', href: '#projects' }}
         backdropText="raja"
         showCredit={false}
         background="#EBE9E5"
