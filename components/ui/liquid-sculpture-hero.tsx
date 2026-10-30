@@ -1251,7 +1251,7 @@ const CSS = `
   .sh-h1{font-size:clamp(36px,min(12.5cqw,7.2cqh),60px);line-height:.94}
   .sh-body{font-size:15px;margin-bottom:20px}
   .sh-eyebrow{font-size:11px}
-  .sh-ctas{gap:18px}
+  .sh-ctas{gap:18px}v bn   
   .sh-btn{height:48px}
   .sh-content{padding-bottom:40px}
   .sh-credit{right:auto;left:50%;transform:translateX(-50%)}
